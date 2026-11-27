@@ -22,13 +22,19 @@ PRODUCT_SOONG_NAMESPACES += \
    $(DOLBY_PATH)
 
 # SEPolicy
+ifeq ($(filter $(DOLBY_PATH)/sepolicy/vendor,$(BOARD_VENDOR_SEPOLICY_DIRS)),)
 BOARD_VENDOR_SEPOLICY_DIRS += $(DOLBY_PATH)/sepolicy/vendor
+endif
 
 # HIDL
+ifeq ($(filter $(DOLBY_PATH)/configs/vintf/dolby_framework_matrix.xml,$(DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE)),)
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += $(DOLBY_PATH)/configs/vintf/dolby_framework_matrix.xml
+endif
+ifeq ($(filter $(DOLBY_PATH)/configs/vintf/vendor.dolby.hardware.dms@2.0-service.xml,$(DEVICE_MANIFEST_FILE)),)
 DEVICE_MANIFEST_FILE += \
     $(DOLBY_PATH)/configs/vintf/vendor.dolby.hardware.dms@2.0-service.xml \
     $(DOLBY_PATH)/configs/vintf/vendor.dolby.media.c2@1.0-service.xml
+endif
 
 # Configs
 PRODUCT_COPY_FILES += \
